@@ -6,7 +6,17 @@
 //  Copyright © 2022-2023 Daniel Saidi. All rights reserved.
 //
 
-#if canImport(AppKit)
+#if canImport(UIKit)
+import class UIKit.UIImage
+
+/**
+ This typealias helps bridging UIKit and AppKit when working
+ with images in a multi-platform context.
+ */
+public typealias ImageRepresentable = UIImage
+
+
+#elseif canImport(AppKit)
 import class AppKit.NSImage
 
 /**
@@ -16,12 +26,4 @@ import class AppKit.NSImage
 public typealias ImageRepresentable = NSImage
 #endif
 
-#if canImport(UIKit)
-import class UIKit.UIImage
 
-/**
- This typealias helps bridging UIKit and AppKit when working
- with images in a multi-platform context.
- */
-public typealias ImageRepresentable = UIImage
-#endif
