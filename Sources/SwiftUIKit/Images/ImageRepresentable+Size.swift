@@ -8,7 +8,22 @@
 
 import Foundation
 
-#if canImport(AppKit)
+#if canImport(UIKit)
+import UIKit
+
+public extension UIImage {
+
+    /// Create a resized copy of the image.
+    func resized(to size: CGSize) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        draw(in: CGRect(origin: CGPoint.zero, size: size))
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return result
+    }
+}
+
+#elseif canImport(AppKit)
 import AppKit
 
 public extension NSImage {
@@ -27,21 +42,7 @@ public extension NSImage {
 #endif
 
 
-#if canImport(UIKit)
-import UIKit
 
-public extension UIImage {
-
-    /// Create a resized copy of the image.
-    func resized(to size: CGSize) -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(size, false, scale)
-        draw(in: CGRect(origin: CGPoint.zero, size: size))
-        let result = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return result
-    }
-}
-#endif
 
 public extension ImageRepresentable {
 
